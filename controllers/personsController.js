@@ -67,11 +67,11 @@ export const createPerson = async (req, res) => {
 
 export const getPerson = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { mobileNumber } = req.params;
     let pool = await sql.connect(config.sql);
     const result = await pool.request()
-        .input("id", sql.Int, id)
-        .query("select * from persons where id = @id");
+        .input("mobilenumber", sql.Int, mobileNumber)
+        .query("select * from persons where id = @mobilenumber");
     !result.recordset[0] ? res.status(404).json({ message: 'user not found' }) :
         res.status(200).json(result.recordset);
 } catch (error) {
